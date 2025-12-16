@@ -2,7 +2,7 @@ import React from "react";
 import type { TaskListProps } from "../../types";
 import TaskItem from "./TaskItem";
 
-import { List, Paper } from "@mui/material";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
 
 const TaskList: React.FC<TaskListProps> = ({
     tasks,
@@ -16,17 +16,31 @@ const TaskList: React.FC<TaskListProps> = ({
 
     return (
         <Paper elevation={2}>
-            <List>
-                {tasks.map((task) => (
-                    <TaskItem
-                        key={task.id}
-                        task={task}
-                        onChangeStatus={onChangeStatus}
-                        onDelete={onDelete}
-                        onEdit={onEdit}
-                    />
-                ))}
-            </List>
+            <TableContainer>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>{/* Checkbox */}</TableCell>
+                            <TableCell>Task</TableCell>
+                            <TableCell>Priority</TableCell>
+                            <TableCell>Status</TableCell>
+                            <TableCell>Due Date</TableCell>
+                            <TableCell>{/* Buttons to edit and delete task */}</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {tasks.map((task) => (
+                            <TaskItem
+                                key={task.id}
+                                task={task}
+                                onChangeStatus={onChangeStatus}
+                                onDelete={onDelete}
+                                onEdit={onEdit}
+                            />
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
         </Paper>
     );
 }

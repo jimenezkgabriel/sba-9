@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import type { TaskItemProps } from "../../types";
 
-import { ListItem, ListItemText, TextField, IconButton, Box } from "@mui/material";
+import { TextField, IconButton, TableRow, TableCell } from "@mui/material";
 
 
 const TaskItem: React.FC<TaskItemProps> = ({ task,
@@ -18,18 +18,11 @@ const TaskItem: React.FC<TaskItemProps> = ({ task,
 
     return (
         <>
-            <ListItem
-                secondaryAction={
-                    !isEditing && (
-                        <IconButton edge="end" aria-label="delete" onClick={() => {onDelete(task.id); onChangeStatus(task.id);}}>
-                            🗑️
-                        </IconButton>
-                    )
-                }
-            >
-                {isEditing ? (
-                    <>
-                        <Box sx={{ display: 'flex', width: '100%', alignItems: 'center', gap: 1, pr: 1 }}>
+            <TableRow>
+                <TableCell><input type="checkbox" checked={task.isCompleted} onChange={() => onChangeStatus(task.id)} /></TableCell>
+                <TableCell style={{ display: 'flex', alignItems: 'center' }}>
+                    {isEditing ? (
+                        <>
                             <TextField
                                 fullWidth
                                 size="small"
@@ -39,17 +32,27 @@ const TaskItem: React.FC<TaskItemProps> = ({ task,
                             <IconButton onClick={handleSave} color="primary">
                                 💾
                             </IconButton>
-                        </Box>
-                    </>
-                ) : (
-                    <>
-                        <ListItemText primary={task.title} />
-                        <IconButton edge="end" aria-label="edit" onClick={() => setIsEditing(true)}>
-                            ✏️
+                        </>
+                    ) : (
+                        <>
+                            {task.title}
+                            <IconButton edge="end" aria-label="edit" onClick={() => setIsEditing(true)}>
+                                ✏️
+                            </IconButton>
+                        </>
+                    )}
+                </TableCell>
+                <TableCell>{task.priority}</TableCell>
+                <TableCell>{task.status}</TableCell>
+                <TableCell>{new Date(task.dueDate).toLocaleDateString()}</TableCell>
+                <TableCell>
+                    {!isEditing && (
+                        <IconButton edge="end" aria-label="delete" onClick={() => { onDelete(task.id); onChangeStatus(task.id); }}>
+                            🗑️
                         </IconButton>
-                    </>
-                )}
-            </ListItem>
+                    )}
+                </TableCell>
+            </TableRow>
         </>
     );
 }

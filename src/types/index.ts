@@ -1,6 +1,7 @@
 export interface taskItem {
     id: number;
     title: string;
+    isCompleted: boolean;
     status: 'in-progress' | 'completed' | 'overdue';
 
     dueDate: string; // ISO date string
@@ -23,5 +24,5 @@ export interface TaskListProps {
 }
 
 export interface TaskFormProps {
-    onAddTask: (text: string) => void;
+    onAddTask: (text: string, priority: 'low' | 'medium' | 'high', dueDate: string) => void;
 }
