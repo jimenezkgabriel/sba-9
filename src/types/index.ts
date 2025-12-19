@@ -26,3 +26,16 @@ export interface TaskListProps {
 export interface TaskFormProps {
     onAddTask: (text: string, priority: 'low' | 'medium' | 'high', dueDate: string) => void;
 }
+
+export interface TaskFilterProps {
+    searchTerm: string;
+    statusTerm: string;
+    priorityTerm: string;
+    onPriorityChange: (priority: string) => void;
+    onStatusChange: (status: string) => void;
+    onSearchChange: (str: string) => void;
+}
+
+export interface DashboardProps {
+    onThemeChange: (theme: string) => void;
+}
